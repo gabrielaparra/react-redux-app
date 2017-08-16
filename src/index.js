@@ -5,7 +5,17 @@ import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 import store from './store';
 
-const state = store.getState()
+const render = () => {
+  const state = store.getState();
+  //using the getState method to get the global state out of the store
 
-ReactDOM.render(<App {...state}/>, document.getElementById('root'));
+  ReactDOM.render(<App todos={state.todos} currentTodo={state.currentTodo} />,
+    document.getElementById('root'));
+}
+
+render();
+
+store.subscribe(render);
+//subscribing to changes in the store, calls render through the subscribe method
+
 registerServiceWorker();
